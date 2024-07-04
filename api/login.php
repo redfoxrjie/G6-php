@@ -17,7 +17,7 @@ if (!isset($_POST["u_account"]) || !isset($_POST["u_psw"])) {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT u_id, u_account, u_email, u_psw, u_phone, u_nickname, u_birthday, u_country, u_status FROM user WHERE u_account = :uAccount AND u_psw = :uPsw");
+    $stmt = $pdo->prepare("SELECT u_id, u_account, u_email, u_psw, u_phone, u_nickname, u_birthday, u_country, u_status, u_avatar FROM user WHERE u_account = :uAccount AND u_psw = :uPsw");
     $stmt->bindValue(":uAccount", $_POST["u_account"]);
     $stmt->bindValue(":uPsw", $_POST["u_psw"]);
     $stmt->execute();
