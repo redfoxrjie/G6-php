@@ -59,7 +59,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 檢查文件大小限制
         if (($field === 'u_background' && $fileSize > 2000000) || ($field === 'u_avatar' && $fileSize > 200000)) { // 2MB 和 200KB
-            echo json_encode(["success" => false, "message" => "文件過大。"]);
+            echo json_encode(["success" => false, "message" => "檔案過大。"]);
             exit(0);
         }
 
@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         // 移動上傳的檔案
         if (move_uploaded_file($fileTmpName, $uploadPath)) {
-            $relativePath = 'images/' . $fileName;
+            $relativePath = $fileName;
 
             // 更新資料庫
             try {

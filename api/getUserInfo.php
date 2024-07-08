@@ -21,11 +21,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     }
 
     $userId = $_GET['userId'];
-    $stmt = $pdo->prepare("SELECT u_background, u_avatar, u_nickname AS memNickname, u_birthday AS birthdate, u_email AS email, u_phone AS mobile FROM user WHERE u_id = ?");
+    $stmt = $pdo->prepare("SELECT u_background, u_avatar, u_nickname AS memNickname, u_birthday AS birthdate, u_email AS email, u_country AS country, u_status AS status, u_phone AS mobile FROM user WHERE u_id = ?");
     $stmt->bindParam(1, $userId, PDO::PARAM_INT);
     $stmt->execute();
     $result = $stmt->fetch(PDO::FETCH_ASSOC);
 
+    $response = ["success" => false, "message" => "User not found"];
     if ($result) {
         $response = [
             'success' => true,
@@ -35,11 +36,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
                 'memNickname' => $result['memNickname'],
                 'birthdate' => $result['birthdate'],
                 'email' => $result['email'],
-                'mobile' => $result['mobile']
+                'country' => $result['country'],
+                'mobile' => $result['mobile'],
+                'u_avatar' => $result['u_avatar'],
+                'status' => $result['status']
             ]
         ];
-    } else {
-        $response = ["success" => false, "message" => "User not found"];
     }
 
     echo json_encode($response);
@@ -49,10 +51,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $userId = $data['userId'];
 
     try {
-        $stmt = $pdo->prepare("UPDATE users SET u_nickname = :memNickname, u_birthday = :birthdate, u_email = :email, u_phone = :mobile WHERE u_id = :userId");
+        $stmt = $pdo->prepare("UPDATE user SET u_nickname = :memNickname, u_birthday = :birthdate, u_email = :email, u_country = :country, u_phone = :mobile WHERE u_id = :userId");
         $stmt->bindParam(':memNickname', $data['memNickname'], PDO::PARAM_STR);
         $stmt->bindParam(':birthdate', $data['birthdate'], PDO::PARAM_STR);
         $stmt->bindParam(':email', $data['email'], PDO::PARAM_STR);
+        $stmt->bindParam(':country', $data['country'], PDO::PARAM_STR);
         $stmt->bindParam(':mobile', $data['mobile'], PDO::PARAM_STR);
         $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
         $stmt->execute();
