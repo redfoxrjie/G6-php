@@ -16,7 +16,7 @@ try {
     $pdo = new PDO($dsn, $user, $password, $options);
 
     // 準備sql指令
-    $sql = "SELECT o.o_id, o.o_name, t.t_name,  o.o_count, o.o_price, o.o_date, o.o_status, o.tq_status
+    $sql = "SELECT o.o_id, o.o_name, t.t_name,  o.o_count, o.o_price, o.o_date, o.o_status, o.tq_status, o.tq_url
     FROM tickets t,ticketsorder o  WHERE o.o_id = $o_id AND t.t_id = o.t_id"; 
 
     // 建立pdo statement
