@@ -3,26 +3,20 @@ header("Access-Control-Allow-Methods: POST, GET, OPTIONS");
 header("Access-Control-Allow-Headers: Content-Type");
 header("Content-Type: application/json");
 
-// 包含資料庫連接檔案
 include '../connectCid101g6.php'; 
 
-// // 撰寫SQL查詢
-// $sql = 'SELECT t_id, t_name, t_price, t_image FROM tickets';
-
-// 執行查詢並提取資料
 try {
-    // 建立pdo物件
+    
     $pdo = new PDO($dsn, $user, $password, $options);
 
-    // 準備sql指令
-    $sql = "SELECT t_id, t_name, t_title, t_price, t_image, t_viewers ,t_active FROM tickets";
+    $sql = "SELECT cu_id, cu_name, cu_email, cu_message, cu_time, cu_status FROM contact";
 
     // 建立pdo statement
     $promos = $pdo->query($sql);
-    $tickets = $promos->fetchAll(PDO::FETCH_ASSOC);
+    $contactus = $promos->fetchAll(PDO::FETCH_ASSOC);
 
     // 轉換成json檔
-    echo json_encode(['tickets' => $tickets]);
+    echo json_encode(['contactus' => $contactus]);
 
 } catch (PDOException $e) {
     // 捕捉錯誤
