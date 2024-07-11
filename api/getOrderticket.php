@@ -7,8 +7,8 @@ header("Content-Type: application/json"); //回應為json檔
 include '../connectCid101g6.php'; 
 
 //取前端傳來的id
-$data = json_decode(file_get_contents("php://input"), true); //讀取前端發來的請求, json_decode將其轉換為PHP陣列
-$o_id = $data['o_id']; //從陣列中提取 t_id 值，並在下方SQL查詢中使用該值來查詢數據庫
+$data = json_decode(file_get_contents("php://input"), true); 
+$o_id = $data['o_id'];
 
 // 執行查詢並提取資料
 try {
@@ -17,7 +17,8 @@ try {
 
     // 準備sql指令
     $sql = "SELECT o.o_id, o.o_name, t.t_name,  o.o_count, o.o_price, o.o_date, o.o_status, o.tq_status, o.tq_url
-    FROM tickets t,ticketsorder o  WHERE o.o_id = $o_id AND t.t_id = o.t_id"; 
+    FROM tickets t,ticketsorder o  
+    WHERE o.o_id = $o_id AND t.t_id = o.t_id"; 
 
     // 建立pdo statement
     $promos = $pdo->query($sql);
