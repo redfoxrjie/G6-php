@@ -8,7 +8,7 @@ include '../connectCid101g6.php';
 
 //取前端傳來的id
 $data = json_decode(file_get_contents("php://input"), true); //讀取前端發來的請求, json_decode將其轉換為PHP陣列
-//從陣列中提取 t_id 值，並在下方SQL查詢中使用該值來查詢數據庫
+
 $u_id = $data['u_id'];
 $t_id = $data['t_id'];
 $o_name = $data['o_name'];
@@ -16,9 +16,9 @@ $o_count = $data['o_count'];
 $o_price = $data['o_price']; 
 $o_payment = $data['o_payment']; 
 $o_remarks = $data['o_remarks']; 
-// 執行查詢並提取資料
+
 try {
-    // 建立pdo物件
+    
     $pdo = new PDO($dsn, $user, $password, $options);
     if (!empty($t_id)){
 
@@ -40,7 +40,8 @@ try {
 
             if ($result) {
                 $o_id = $result['o_id'];
-                $tq_url = "https://quickchart.io/qr?text=http://localhost:5173/OrderQRCode/$o_id";
+                // $tq_url = "https://quickchart.io/qr?text=http://localhost:5173/OrderQRCode/$o_id";
+                $tq_url = "https://quickchart.io/qr?text=https://tibamef2e.com/cid101/g6/front/OrderQRCode/$o_id";
 
                 // 更新包含 tq_url 的记录
                 $sql3 = "UPDATE ticketsorder SET tq_url = '$tq_url' WHERE o_id = $o_id";
