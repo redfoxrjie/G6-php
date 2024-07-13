@@ -3,12 +3,14 @@
 
 function getDbConnection() {
     $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "cid101g6";
+    $username = "tibamefe_since2021";
+    $password = "vwRBSb.j&K#E";
+
+    $port =3306;
+    $dbname = "tibamefe_cid101g6";
 
     try {
-        $pdo = new PDO("mysql:host=$servername;dbname=$dbname;charset=utf8", $username, $password);
+        $pdo = new PDO("mysql:host=$servername;port=$port;dbname=$dbname;charset=utf8", $username, $password);
         // 設置 PDO 錯誤模式為異常
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         return $pdo;
