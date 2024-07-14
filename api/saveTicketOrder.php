@@ -51,6 +51,7 @@ try {
                 if ($stmt3->execute()) {
                     $response['message'] = "QRCode已成功生成並新增";
                     $response['tq_url'] = $tq_url ;
+                    $response['o_id'] = $o_id ; //將o_id返回前端
                 } else {
                     $response['error'] = "QRCode更新失敗" ;
                 }
